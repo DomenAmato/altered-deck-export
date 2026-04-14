@@ -61,11 +61,11 @@
 
         data.cards.forEach(c => {
             // Popoliamo la tabella
-            const row = `<tr><td>${c.quantity}x</td><td>${c.code}</td></tr>`;
+            const row = `<tr><td>${c.quantity}</td><td>${c.code}</td></tr>`;
             tbody.innerHTML += row;
             
             // Prepariamo il testo piano (es: 3x ALT_CORE_B_YZ_01_R)
-            currentDeckText += `${c.quantity}x ${c.code}\n`;
+            currentDeckText += `${c.quantity} ${c.code}\n`;
         });
 
         document.getElementById('resultTable').style.display = 'table';

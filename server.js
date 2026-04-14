@@ -21,10 +21,11 @@ app.get('/api/deck', async (req, res) => {
     try {
         // Logica per estrarre l'ID:
         // Se l'input contiene "/", prendiamo l'ultima parte, altrimenti usiamo l'input così com'è.
+        console.log(input)
         const deckId = input.includes('/') ? input.split('/').filter(Boolean).pop() : input;
         
-        const apiUrl = `https://api.altered.gg/decks/${deckId}`;
-
+        const apiUrl = `https://api.altered.gg/deck_user_lists/${deckId}`;
+        console.log(apiUrl)
         const response = await axios.get(apiUrl, {
             headers: { 
                 'Accept-Language': 'it-IT',
