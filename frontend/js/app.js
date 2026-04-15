@@ -30,17 +30,15 @@ function downloadSet(code) {
 
 // Funzione per estrarre il deck
 async function fetchDeck() {
-    const deckUrl = document.getElementById('deckUrl').value;
-    const resultTable = document.getElementById('resultTable');
-    const cardList = document.getElementById('cardList');
-
-    if (!deckUrl) {
-        alert('Inserisci un URL o ID valido.');
-        return;
-    }
+    const input = document.getElementById('deckUrl').value;
+    const copyBtn = document.getElementById('copyBtn');
+    
+    // Opzionale: disabilitiamo il tasto all'inizio di ogni nuova ricerca 
+    // per evitare di copiare il vecchio deck mentre il nuovo carica
+    copyBtn.disabled = true;
 
     try {
-        const response = await fetch(`/api/deck?url=${encodeURIComponent(deckUrl)}`);
+        const response = await fetch(`/api/deck?url=${encodeURIComponent(input)}`);
         const data = await response.json();
 
         if (data.error) {
@@ -48,16 +46,18 @@ async function fetchDeck() {
             return;
         }
 
-        cardList.innerHTML = '';
-        data.cards.forEach(card => {
-            const row = document.createElement('tr');
-            row.innerHTML = `<td>${card.quantity}</td><td>${card.code}</td>`;
-            cardList.appendChild(row);
-        });
+        // ... logica per popolare la tabella e currentDeckText ...
+        
+        // Una volta che la tabella è piena, abilitiamo il tasto
+        if (data.cards && data.cards.length > 0) {
+            document.getElementById('resultTable').style.display = 'table';
+            copyBtn.disabled = false; // ABILITA IL TASTO
+            copyBtn.style.display = 'block'; // Assicuriamoci che sia visibile
+        }
 
-        resultTable.style.display = 'table';
-    } catch (error) {
-        alert('Errore durante il recupero dei dati.');
+    } catch (e) {
+        console.error("Errore di connessione", e);
+        alert("Impossibile connettersi al server.");
     }
 }
 

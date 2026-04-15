@@ -123,3 +123,11 @@ nav {
     /* Se vuoi nascondere l'intera barra di navigazione */
     display: none; 
 }
+
+/* Quando il bottone ha l'attributo disabled */
+button:disabled {
+    background-color: #cccccc !important;
+    color: #666666 !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
