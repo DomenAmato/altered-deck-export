@@ -68,16 +68,27 @@ router.get('/admin/update-db', async (req, res) => {
     }
 });
 
-// Rotta dinamica per scaricare il file di un'espansione specifica
-router.get('/admin/download-json/:set', (req, res) => {
+// Assicurati che il percorso sia esattamente questo
+router.get('/api/admin/download-json/:set', (req, res) => {
+    // Trasformiamo il parametro in minuscolo per sicurezza
     const setCode = req.params.set.toLowerCase();
     const fileName = `db_${setCode}.json`;
-    const filePath = path.join(__dirname, '../../db', fileName); // Poiché siamo in backend/routes, ../../db
+    const filePath = path.join(__dirname, fileName);
+
+    console.log("Tentativo di download file:", filePath);
 
     if (fs.existsSync(filePath)) {
-        res.download(filePath);
+        res.download(filePath, fileName, (err) => {
+            if (err) {
+                console.error("Errore durante l'invio del file:", err);
+                res.status(500).send("Errore nel download");
+            }
+        });
     } else {
-        res.status(404).json({ error: "File non trovato. Esegui prima l'aggiornamento." });
+        res.status(404).json({ 
+            error: "File non trovato", 
+            message: `Il file per l'espansione ${setCode} non esiste. Clicca prima su 'Aggiorna Database'.` 
+        });
     }
 });
 

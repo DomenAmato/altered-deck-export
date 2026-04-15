@@ -15,8 +15,9 @@ async function updateServerDB() {
     } catch (e) { status.innerText = "Errore di connessione."; }
 }
 
-function downloadJSON() {
-    window.location.href = '/api/admin/download-json';
+function downloadSet(code) {
+    // Questo caricherà ad esempio: /api/admin/download-json/CORE
+    window.location.href = `/api/admin/download-json/${code}`;
 }
 
 // Funzione per estrarre il deck

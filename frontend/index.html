@@ -27,13 +27,21 @@
     </div>
 
     <div id="admin" class="page">
-        <h2>Gestione Dati</h2>
-        <p>Scarica l'intero database di Altered TCG (JSON) sul server e poi salvalo sul tuo PC.</p>
-        <button class="btn-extract" onclick="updateServerDB()">1. Aggiorna Database sul Server</button>
-        <br><br>
-        <button class="btn-copy" style="display:inline-block;" onclick="downloadJSON()">2. Scarica JSON sul PC</button>
-        <p id="adminStatus"></p>
+    <h2>Gestione Database per Espansione</h2>
+    <button class="btn-extract" onclick="updateServerDB()">Aggiorna tutti i file sul Server</button>
+    <p id="adminStatus" style="white-space: pre-line;"></p>
+    
+    <hr>
+    <h3>Scarica JSON su PC</h3>
+    <div id="downloadButtons" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <button class="btn-copy" onclick="downloadSet('CORE')">Beyond the Gates</button>
+        <button class="btn-copy" onclick="downloadSet('ALIZE')">Trial by the Frost</button>
+        <button class="btn-copy" onclick="downloadSet('BISE')">Whispers from the Maze</button>
+        <button class="btn-copy" onclick="downloadSet('CYCLONE')">Skybound Odissey</button>
+        <button class="btn-copy" onclick="downloadSet('DUSTER')">Seeds of Unity</button>
+        <button class="btn-copy" onclick="downloadSet('EOLE')">Roots of Corruption</button>
     </div>
+</div>
 </div>
 
 <script src="js/app.js"></script>
